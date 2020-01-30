@@ -4,5 +4,5 @@
 class BitVector final : public std::vector<bool> {
   public:
     BitVector () : std::vector<bool>() {};
-    void append (const unsigned int &value, const size_t &length);
+    void append (const size_t &value, const size_t &length);
 };

@@ -3,30 +3,32 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "g++ build",
+      "label": "build",
       "command": "g++",
       "presentation": {
         "reveal": "silent",
         "showReuseMessage": false,
         "clear": true
       },
-      "args": [
-        "-std=c++17",
-        "-Wall",
-        "./**/*.cpp",
-        "-o", "qrypt",
-        "&&", "./qrypt"
-      ],
-      "options": {
-        "cwd": "${workspaceRoot}"
-      },
-      "problemMatcher": [
-        "$gcc"
-      ],
+      "args": ["-std=c++17", "-Wall", "./**/*.cpp", "-o", ".qrypt", "&&", "time", "./.qrypt"],
+      "options": { "cwd": "${workspaceRoot}" },
+      "problemMatcher": ["$gcc"],
       "group": {
         "kind": "build",
         "isDefault": true
       }
+    }, {
+      "type": "shell",
+      "label": "debug",
+      "command": "g++",
+      "presentation": {
+        "reveal": "silent",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "args": ["-std=c++17", "-Wall", "-g", "./**/*.cpp", "-o", ".qrypt"],
+      "options": { "cwd": "${workspaceRoot}" },
+      "problemMatcher": ["$gcc"]
     }
   ]
 }

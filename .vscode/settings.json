@@ -47,6 +47,7 @@
     "limits": "cpp",
     "new": "cpp",
     "stdexcept": "cpp",
-    "cstring": "cpp"
+    "cstring": "cpp",
+    "cinttypes": "cpp"
   }
 }
