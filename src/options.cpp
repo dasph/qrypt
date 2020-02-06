@@ -17,12 +17,10 @@ void Options::error (const char *reason) const {
 
 void Options::help () const {
   std::cout << this->argv[0] << ": usage " << this->argv[0] << " <input data> "
-            << "[-e L|M|Q|H] [-f png|jpg|svg] [-s 1-255] [-o name] [-w] [-h]\n\t"
+            << "[-e L|M|Q|H] [-f png|jpg|svg] [-o name] [-w] [-h]\n\t"
             << "-e, --errorcorrection=M\t\terror correction level\n\t"
-            << "-f, --format=svg\t\toutput format\n\t"
-            << "-s, --scale=1\t\t\tpixels per module\n\t"
             << "-b, --border=0\t\t\tamount of border modules\n\t"
-            << "-o, --output=qrcode.png\t\toutput name\n\t"
+            << "-o, --output=qrcode.svg\t\toutput name\n\t"
             << "-w, --wifi\t\t\twifi access point entry <\"name;password\">\n";
   exit(0);
 }
@@ -34,7 +32,7 @@ QrCode::Ecc Options::parseEcc (const char *c) {
 
 Options::Format Options::parseExt (const char *ext) {
   if (*ext > 47 && *ext < 51) return Options::Format(atoi(ext) - 48);
-  return Options::Format(!strcmp(ext, "svg") ? 0 : !strcmp(ext, "png") ? 1 : !strcmp(ext, "jpg") ? 2 : -1);
+  return Options::Format(!strcmp(ext, "svg") ? 0 : !strcmp(ext, "png") ? 1 : -1);
 }
 
 std::pair<std::string, std::string> Options::parseOutput (const char *output) {
@@ -65,10 +63,6 @@ Options::Options (const int &c, char *const *v) : argc(c), argv(v) {
         this->flags.format = true;
         if (Options::parseExt(optarg) == Format::undefined) this->error("file format");
         this->_output = Options::renameOutput(this->_output, nullptr, optarg);
-      } break;
-      case 's': {
-        this->_scale = static_cast<unsigned char>(atoi(optarg));
-        if (!this->_scale) this->error("scale factor");
       } break;
       case 'b': {
         this->_border = atoi(optarg);
